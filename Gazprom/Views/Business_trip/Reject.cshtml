@@ -1,0 +1,21 @@
+﻿@model Gazprom.Models.Business_trip
+
+@{
+    ViewBag.Title = "Reject";
+}
+
+<h2>Reject</h2>
+
+<h3>Вы действительно хотите отклонить?</h3>
+<div>
+    
+    <hr />
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Отклонить" class="btn btn-default" /> |
+            @Html.ActionLink("Назад", "Index")
+        </div>
+    }
+</div>

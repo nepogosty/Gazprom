@@ -1,0 +1,460 @@
+﻿@*@model IEnumerable<Gazprom.Models.Business_trip>*@
+@model Gazprom.Models.FilteredBT
+@{
+    ViewBag.Title = "Index";
+    int summ = 0;
+
+    foreach (var item in Model.BusinessTrips)
+    {
+        if (Model.id_access == 1 && (item.ID_status == 2 || item.ID_status == 3)){
+            summ = summ + item.TotalSumm;
+        }
+        if (Model.id_access == 2 && (item.ID_status == 3))
+        {
+            summ = summ + item.TotalSumm;
+        }
+        if(Model.id_access == 0) { summ = summ + item.TotalSumm; }
+    }
+        }
+
+<h2>Ваши командировки</h2>
+
+<p>@if (Model.id_access != 2)
+{
+    @Html.ActionLink("Создать командировку  |", "Create")
+}
+    @Html.ActionLink("  Скачать файл  |", "Export")
+    
+    @if (Model.id_access == 2)
+    {
+    @Html.ActionLink("  Создать подразделение  |", "Create", "Subdivisions")
+    @Html.ActionLink("  Создать филиал", "Create", "Branches")
+    }
+</p>
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Время: </label>
+        @Html.DropDownList("date", Model.TimeFilter  as SelectList,
+                    htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>
+<table class="table">
+    <tr>
+
+        <th width="200">
+            Сотрудник
+        </th>
+
+
+        <th width="200">
+            Регион
+        </th>
+
+        <th width="200">
+            Нас. пункт
+        </th>
+
+        <th>
+            С
+        </th>
+        <th>
+            До
+        </th>
+        <th width="110">
+            Кол-во дней
+        </th>
+        
+        <th>
+            Итого
+        </th>
+        <th>
+            Статус
+        </th>
+        <th></th>
+    </tr>
+    @if (Model.id_access == 0)
+    {
+        foreach (var item in Model.BusinessTrips)
+        {
+        //if (item == 0)
+        //{
+            <tr>
+
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Employee.Lastname)
+                        @item.Employee.FirstName.Substring(0, 1)
+                        @item.Employee.Patronymic.Substring(0, 1)
+
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Region)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locality)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartBT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndBT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DifferencesDays)
+                </td>
+
+
+                <td>
+                    <div id="ui">@Html.DisplayFor(modelItem => item.TotalSumm)</div>
+
+
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Name)
+                </td>
+                <td>
+                    @if ((item.Status.ID_status == 1 || item.Status.ID_status == 0 || item.Status.ID_status == 4) && item.Login == User.Identity.Name)
+                        {
+
+
+
+                @Html.ActionLink("Изменить    ", "Edit", new { id = item.ID_businesstrip })
+                        @Html.ActionLink("Удалить    ", "Delete", new { id = item.ID_businesstrip })
+                    }
+
+
+            @Html.ActionLink("Копировать    ", "Copy", new { id = item.ID_businesstrip })
+                        @Html.ActionLink("Подробнее", "Details", new { id = item.ID_businesstrip })
+                </td>
+
+            </tr>
+        }
+    }
+
+@if (Model.id_access == 1)
+    {
+        foreach (var item in Model.BusinessTrips)
+        {
+    @*if (id == 1 )
+    {*@
+        if (item.Status.ID_status == 1)
+        {
+            <tr>
+
+                <td>
+                    <b>
+                    @Html.DisplayFor(modelItem => item.Employee.Lastname)
+                    @item.Employee.FirstName.Substring(0, 1)
+                    @item.Employee.Patronymic.Substring(0, 1)
+                    </b>
+                
+                </td>
+
+
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.Region)</b>
+                    
+                </td>
+
+                <td>
+                   <b>@Html.DisplayFor(modelItem => item.Locality)</b>
+                </td>
+
+                <td>
+                   <b>@Html.DisplayFor(modelItem => item.StartBT)</b> 
+                </td>
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.EndBT)</b>
+                </td>
+                <td>
+                  <b>@Html.DisplayFor(modelItem => item.DifferencesDays)</b>  
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalSumm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Name)
+                </td>
+                
+                <td>
+                    
+                        @Html.ActionLink("Принять    ", "Confirm", new { id = item.ID_businesstrip })
+                        @Html.ActionLink("Отклонить    ", "Reject", new { id = item.ID_businesstrip })
+                    
+                    @Html.ActionLink("Подробнее", "Details", new { id = item.ID_businesstrip })
+                </td>
+                
+            </tr>
+            }
+            if (item.Status.ID_status == 2)
+            {
+                <tr>
+
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.Employee.Lastname)
+                        @item.Employee.FirstName.Substring(0, 1)
+                        @item.Employee.Patronymic.Substring(0, 1)
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Region)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Locality)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartBT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndBT)
+                    </td>
+                    <td >
+                        @Html.DisplayFor(modelItem => item.DifferencesDays)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalSumm)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+                    </td>
+
+                    <td>
+                            @Html.ActionLink("Подробнее", "Details", new { id = item.ID_businesstrip })
+                        </td>
+
+                    </tr>
+
+        }
+        if (item.Status.ID_status == 3)
+        {
+            <tr>
+
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Employee.Lastname)
+                    @item.Employee.FirstName.Substring(0, 1)
+                    @item.Employee.Patronymic.Substring(0, 1)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Region)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locality)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartBT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndBT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DifferencesDays)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalSumm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Name)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Подробнее", "Details", new { id = item.ID_businesstrip })
+                </td>
+
+            </tr>
+
+        }
+        if (item.Status.ID_status == 0 && item.Login == User.Identity.Name)
+        {
+            <tr>
+
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Employee.Lastname)
+                    @item.Employee.FirstName.Substring(0, 1)
+                    @item.Employee.Patronymic.Substring(0, 1)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Region)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locality)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartBT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndBT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DifferencesDays)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalSumm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Name)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Изменить    ", "Edit", new { id = item.ID_businesstrip })
+                    @Html.ActionLink("Удалить    ", "Delete", new { id = item.ID_businesstrip })
+                    @Html.ActionLink("Подробнее", "Details", new { id = item.ID_businesstrip })
+                </td>
+
+            </tr>
+        }
+    }
+}
+@if (Model.id_access == 2)
+{
+    foreach (var item in Model.BusinessTrips)
+    {
+        @*if (id == 1 )
+            {*@
+        if (item.Status.ID_status == 2)
+        {
+            <tr>
+
+                <td>
+                    <b>
+                        @Html.DisplayFor(modelItem => item.Employee.Lastname)
+                        @item.Employee.FirstName.Substring(0, 1)
+                        @item.Employee.Patronymic.Substring(0, 1)
+                    </b>
+
+                </td>
+
+
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.Region)</b>
+
+                </td>
+
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.Locality)</b>
+                </td>
+
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.StartBT)</b>
+                </td>
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.EndBT)</b>
+                </td>
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.DifferencesDays)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalSumm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Name)
+                </td>
+
+                <td>
+
+                    @Html.ActionLink("Принять    ", "Confirm", new { id = item.ID_businesstrip })
+                    @Html.ActionLink("Вернуть    ", "Reject", new { id = item.ID_businesstrip })
+
+                    @Html.ActionLink("Подробнее", "Details", new { id = item.ID_businesstrip })
+                </td>
+
+            </tr>
+}
+if (item.Status.ID_status == 3)
+{
+   
+    <tr style="background-color:palegreen">
+        
+        <td>
+            
+                @Html.DisplayFor(modelItem => item.Employee.Lastname)
+                @item.Employee.FirstName.Substring(0, 1)
+                @item.Employee.Patronymic.Substring(0, 1)
+            
+
+        </td>
+
+
+        <td>
+           @Html.DisplayFor(modelItem => item.Region)
+
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Locality)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.StartBT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndBT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DifferencesDays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalSumm)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status.Name)
+        </td>
+
+        <td>
+
+            @Html.ActionLink("Подробнее", "Details", new { id = item.ID_businesstrip })
+        </td>
+
+    </tr>
+        }
+    }
+}
+</table>
+<div class="cyda2">
+    Итоговая сумма:
+    <input type="text" value="@summ" name="name" id="uname"
+           placeholder="Нажмите сюда, чтобы увидеть сумму" />
+</div>
+
+<script>
+                //$(function () {
+                //    $("#CostLiving").blur(function () {
+                //        $("#Fare").val(parseInt($("OvernightStay").val()) + parseInt($("CostLiving").val()))
+                //    });
+                //})
+                //$(document).keydown(function (e) {
+                //    // если нажата клавиша вверх
+                //    if (e.which == 38) {
+                //        // поднимаем некоторый элемент на 5 пикселей вверх
+                //        var top = parseInt($("h4"));
+                //        ($("h4").append('<li>Новый элемент списка</li>'));
+                //    }
+    //});
+
+
+
+                //$("#uname").mousedown (function (e) {
+                //    $("#uname").val((parseInt($("#ui").val())));
+                //});
+
+ </script>

@@ -1,0 +1,158 @@
+﻿@model Gazprom.Models.Business_trip
+
+@{
+    ViewBag.Title = "Create";
+
+}
+
+<h2>Создать командировку</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4></h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary()
+        @Html.HiddenFor(model => model.ID_businesstrip)
+        <div class="cyda">
+            Ваш логин:
+            @User.Identity.Name
+
+        </div>
+        <div class="cyda">
+            Регион:
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Region, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="cyda">
+            Район:
+        </div>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.District, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="cyda">
+            Нас. пункт:
+        </div>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Locality, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Locality, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="cyda">
+            Контрагент:
+        </div>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.DropDownList("ID_CP", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_CP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="cyda">
+            Цель:
+        </div>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Purpose, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Purpose, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="cyda">
+            Начало:
+        </div>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StartBT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StartBT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="cyda">
+            Окончание:
+        </div>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EndBT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EndBT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="cyda">
+            Тариф:
+        </div>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.DropDownList("Cost", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="cyda">
+            К-во суток проживания:
+        </div>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OvernightStay, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OvernightStay, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="cyda">
+            Цена жилья:
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CostLiving, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CostLiving, "", new { @class = "text-danger" })
+            </div>
+        </div>
+       
+        <div class="cyda">
+            Проезд:
+        </div>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fare, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fare, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Login, "Login", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("Login", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Назад", "Index")
+</div>
+@*<script>
+            $(function () {
+                $("#CostLiving").blur(function () {
+                    $("#Fare").val(parseInt($("OvernightStay").val()) + parseInt($("CostLiving").val()))
+                });
+            })
+</script>*@

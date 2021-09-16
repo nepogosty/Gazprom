@@ -1,0 +1,164 @@
+﻿@model Gazprom.Models.Business_trip
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Подробности командировки</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Ключ командировки
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_businesstrip)
+        </dd>
+        <dt>
+            Ваш филиал
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Counterparty.Name)
+        </dd>
+
+        <dt>
+            ФИО
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Lastname)
+            @Html.DisplayFor(model => model.Employee.FirstName)
+            @Html.DisplayFor(model => model.Employee.Patronymic)
+        </dd>
+
+        <dt>
+            Регион
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Region)
+        </dd>
+
+        <dt>
+            Район
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.District)
+        </dd>
+
+        <dt>
+           Нас. пункт
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Locality)
+        </dd>
+        <dt>
+            Контрагент
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Counterparty.Name)
+        </dd>
+
+        <dt>
+            Цель
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Purpose)
+        </dd>
+
+        <dt>
+            Начало
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartBT)
+        </dd>
+
+        <dt>
+            Окончание
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndBT)
+        </dd>
+        <dt>
+            Длительность
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DifferencesDays)
+        </dd>
+        <dt>
+            Тариф
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tariff_daily.Cost)
+        </dd>
+        <dt>
+            Сумма суточных
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SummCost)
+        </dd>
+
+        <dt>
+           Количество суток
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OvernightStay)
+        </dd>
+
+        <dt>
+            Стоимость прожив.
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostLiving)
+        </dd>
+        <dt>
+            Итог
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SummLiving)
+        </dd>
+
+        <dt>
+           Проезд
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fare)
+        </dd>
+        <dt>
+            Итоговая сумма
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalSumm)
+        </dd>
+
+        <dt>
+            Статус
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+  
+    @Html.ActionLink("Назад", "Index")
+</p>

@@ -1,0 +1,55 @@
+﻿@*@{
+    ViewBag.Title = "Home Page";
+@*}*@
+
+@*<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("logout...", "Logoff")
+        }
+        else
+        {
+            @Html.ActionLink("login", "Login")
+           
+        }
+    </div>
+</body>
+</html>*@
+
+<!DOCTYPE html>
+<div class="container body-content">
+    @{
+        ViewBag.Title = "Bussiness trip";
+    }
+
+    <div class="jumbotron" style=" background-color #c8a2c8; padding-top 130px;
+         padding-bottom 130px;
+         margin-bottom 0px;
+         margin-top 10px;
+         opacity .9; ">
+        <h1 style="text-align: center ">Добро Пожаловать!</h1>
+        <h1 style="text-align: center">Командировки</h1>
+        @*<p class="lead" style="text-align: center">Найдите сореванование по душе</p>*@
+        @if (User.Identity.IsAuthenticated)
+        {    <input type="button" value="Посмотреть командировки" onclick="location.href='@Url.Action("Index", "Business_trip")'" style="text-align:center" />
+             <input type="button" value="Выйти" onclick="location.href='@Url.Action("Logoff", "Home")'" style="text-align:center" />
+       
+        }
+        else
+        {
+            <input type="button" value="Авторизоваться" onclick="location.href='@Url.Action("Login", "Home")'" style="text-align:center" />
+            @*@Html.ActionLink("Авторизоваться", "Login")*@
+            
+        }
+
+</div>
+
+</div>

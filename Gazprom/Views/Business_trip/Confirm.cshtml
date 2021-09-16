@@ -1,0 +1,23 @@
+﻿@model Gazprom.Models.Business_trip
+
+@{
+    ViewBag.Title = "Confirm";
+}
+
+<h2>Confirm</h2>
+
+<h3>Вы действительно хотите подтвердить?</h3>
+<div>
+    
+    <hr />
+   
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Принять" class="btn btn-default" /> |
+            @Html.ActionLink("Назад", "Index")
+        </div>
+    }
+</div>

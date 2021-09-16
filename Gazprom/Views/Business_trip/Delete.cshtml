@@ -1,0 +1,127 @@
+﻿@model Gazprom.Models.Business_trip
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<h3>Вы действительно хотите удалить командировку?</h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Counterparty.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Counterparty.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.Lastname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tariff_daily.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tariff_daily.Cost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Region)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.District)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.District)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Locality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Locality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Purpose)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Purpose)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartBT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartBT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndBT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndBT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OvernightStay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OvernightStay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CostLiving)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostLiving)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fare)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fare)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Назад", "Index")
+        </div>
+    }
+</div>
